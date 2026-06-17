@@ -1,0 +1,36 @@
+#!/bin/bash
+# Checks that the user provides one cli argument
+if [ $# -ne 1 ]; then
+   echo "Usage: $(basename $0) <path_to_log>"
+   exit 1
+fi
+
+logFile=$1
+
+# Checks if file exists and is readable
+if [ ! -f $logFile ]; then
+   echo "File not found!"
+   exit 1
+elif [ ! -r $logFile ]; then
+   echo "File not valid!"
+   exit 1
+fi
+
+# Checks each line in log for key events and records it
+susEvents=$(awk 'tolower($0) ~ /failed.password|invalid.user|authentication.failures?/' $logFile)
+
+# Records how many events were listed
+eventsCount=$(echo "$susEvents" | awk 'END {print NR}')
+
+# Extracts the IPs from the events and sorts them by occurrence
+susIPs=$(echo $susEvents | grep -P -o "([\d]+\.+){3}[\d]+" | sort | uniq -c | sort -r )
+
+# Records how many lines were processed, excluding header
+totalLines=$(awk 'END {print NR-1}' $logFile)
+
+# Limits events and IPs displayed
+susEvents=$(echo "$susEvents" | head)
+susIPs=$(echo "$susIPs" | head -n 5)
+
+# Passes values to script which prints the summary from a template
+./summary.sh $logFile $totalLines $eventsCount "$susIPs" "$susEvents"
