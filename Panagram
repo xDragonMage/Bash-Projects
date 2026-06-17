@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Description: Checks if input sentence contains all 26 letters
+
+letterCount=$(echo ${@^^} | grep -o [A-Z] | sort | uniq | wc -l)
+
+if [ $letterCount == 26 ]; then
+   echo "$@ is a pangram"
+else
+   echo "$@ is not a pangram"
+fi
