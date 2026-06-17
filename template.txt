@@ -1,0 +1,19 @@
+##########################################
+## Team: [TEAM NAME] #
+## Programmers: [NAME1, NAME2, NAME3] #
+## Security Log Analysis Report #
+## Log File: [LOG] #
+## Run Date: [DATE] #
+##########################################
+
+### 1. Summary Statistics ###
+* Total Lines Processed: TOTAL LINES
+* Potential Security Events Found: EVENTS COUNT
+
+### 2. Top 5 Suspicious IP Addresses (Failed Auth Attempts) ###
+#COUNT | IP Address
+---------------------------
+SUSIPS
+
+### 3. Raw Event Examples (First 10) ###
+RAW EVENT
