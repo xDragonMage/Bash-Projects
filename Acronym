@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Description: Converts inputted strings into an acronym
+
+IFS='- '
+
+for word in $@;
+do
+   acronym+=${word:0:1}
+done
+
+echo "${acronym^^}"
