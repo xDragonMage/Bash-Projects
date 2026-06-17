@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Description: Checks if 1 argument is entered, then greets
+
+if [ $# -ne 1 ]; then
+   echo "Error, enter 1 argument"
+   exit 1
+fi
+
+echo "Hello $1!"
